@@ -8,30 +8,38 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
-const config_1 = require("@nestjs/config");
 const typeorm_1 = require("@nestjs/typeorm");
-const auth_module_1 = require("./auth/auth.module");
-const user_module_1 = require("./user/user.module");
-const auth_entity_1 = require("./shared/entities/auth.entity");
 const user_entity_1 = require("./shared/entities/user.entity");
+const auth_entity_1 = require("./shared/entities/auth.entity");
+const article_entity_1 = require("./shared/entities/article.entity");
+const comment_entity_1 = require("./shared/entities/comment.entity");
+const tag_entity_1 = require("./shared/entities/tag.entity");
+const auth_module_1 = require("./module/auth/auth.module");
+const article_module_1 = require("./module/article/article.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            config_1.ConfigModule.forRoot({ isGlobal: true }),
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'postgres',
-                host: process.env.DB_HOST || 'localhost',
-                port: parseInt(process.env.DB_PORT || '5432', 10),
-                username: process.env.DB_USER || 'postgres',
-                password: process.env.DB_PASSWORD || '12345',
-                database: process.env.DB_NAME || 'nest_project',
-                entities: [auth_entity_1.AuthEntity, user_entity_1.UserEntity],
+                host: 'localhost',
+                port: 5432,
+                username: 'postgres',
+                password: 'bestfizik05',
+                database: 'medium',
+                entities: [
+                    user_entity_1.UserEntity,
+                    auth_entity_1.AuthEntity,
+                    article_entity_1.ArticleEntity,
+                    comment_entity_1.CommentEntity,
+                    tag_entity_1.TagEntity,
+                ],
                 synchronize: true,
+                autoLoadEntities: true,
             }),
             auth_module_1.AuthModule,
-            user_module_1.UserModule,
+            article_module_1.ArticleModule,
         ],
     })
 ], AppModule);
